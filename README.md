@@ -1,62 +1,29 @@
-# SymptoAI Pro - AI-Powered Health Diagnosis
+# AI Symptom Pro
 
-An intelligent symptom analysis system that uses machine learning to provide quick health insights. Built with React, TypeScript, and a Random Forest classifier trained on medical datasets.
+**AI Symptom Pro** is an AI-based symptom checker with remedies and precautions. It uses machine learning to provide quick health insights based on the symptoms you provide, detecting multiple common diseases with high accuracy.
 
 ## Features
 
-- **41 Diseases Detection**: Identifies common health conditions from symptom analysis
-- **95 Symptom Analysis**: Comprehensive symptom input with intelligent matching
-- **94% Accuracy**: Machine learning model trained on extensive medical datasets
-- **Real-time Predictions**: Instant health insights with confidence scores
-- **Personalized Guidance**: Health tips, diet suggestions, lifestyle advice, and preventive measures for each disease
-- **Beautiful UI**: Modern, responsive interface with dark mode support
+- **Symptom Analysis**: Comprehensive symptom input with intelligent matching.
+- **Real-time Predictions**: Instant medical condition insights using a trained machine learning model.
+- **Targeted Advice**: Get personalized health tips, diet suggestions, remedies, and preventive measures for each detected disease.
+- **Beautiful UI**: Modern, responsive interface with intuitive design and dark mode support.
+- **Secure & Fast**: Powered by a lightweight Flask backend API and a modern React frontend framework.
 
-### Try These Example Symptoms!
+## Tech Stack
 
-Here are a few quick symptom combinations from our dataset that you can test to see how the model responds:
+- **Frontend**: React, TypeScript, Tailwind CSS, Vite
+- **Backend**: Python, Flask, Flask-CORS
+- **Machine Learning**: scikit-learn (Random Forest Classifier), NumPy, Pandas
+- **Database / Storage**: Local file system (CSV datasets / serialized models)
 
-**1. Predicts: Malaria (High Confidence)**
-- `chills`
-- `vomiting`
-- `high_fever`
-- `sweating`
-- `headache`
-- `nausea`
-- `muscle_pain`
-
-**2. Predicts: Jaundice (High Confidence)**
-- `itching`
-- `vomiting`
-- `fatigue`
-- `weight_loss`
-- `high_fever`
-- `yellowish_skin`
-- `dark_urine`
-- `abdominal_pain`
-
-**3. Predicts: Heart attack (High Confidence)**
-- `vomiting`
-- `breathlessness`
-- `sweating`
-
-**4. Predicts: Hypertension (High Confidence)**
-- `headache`
-- `chest_pain`
-- `dizziness`
-
-**5. Predicts: Pneumonia (High Confidence)**
-- `chills`
-- `fatigue`
-- `cough`
-
-## Getting Started
+## Setup Instructions
 
 ### Prerequisites
+- Node.js 16+
+- Python 3.8+ 
 
-- Node.js 16+ ([install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating))
-- Python 3.8+ (for the ML API backend)
-
-### Setup & Installation
+### Installation
 
 1. **Clone the repository:**
    ```bash
@@ -64,176 +31,46 @@ Here are a few quick symptom combinations from our dataset that you can test to 
    cd ai-health-advisor-main
    ```
 
-2. **Install frontend dependencies:**
+2. **Frontend Setup:**
    ```bash
    npm install
    ```
 
-3. **Set up Python backend:**
+3. **Backend Setup:**
    ```bash
-   # Create virtual environment (optional but recommended)
-   python -m venv .venv
+   # Create a virtual environment
+   python -m venv venv
    
-   # Windows
-   .venv\Scripts\activate
-   
-   # macOS/Linux
-   source .venv/bin/activate
+   # Activate virtual environment
+   # Windows:
+   venv\Scripts\activate
+   # macOS/Linux:
+   source venv/bin/activate
    
    # Install dependencies
    pip install -r backend/requirements.txt
+   # (If your python requirements are in the root directory, run: pip install -r requirements.txt)
    ```
 
 ### Running the Application
 
-**Terminal 1 - Start the ML API backend:**
-```bash
-npm run start:api
-```
-This launches the Flask server on `http://localhost:5000`
+1. **Start the ML Backend:**
+   ```bash
+   npm run start:api
+   # Or run manually: python backend/app.py
+   ```
+   The Flask server will typically start on `http://localhost:5000`.
 
-**Terminal 2 - Start the frontend development server:**
-```bash
-npm run dev
-```
-Visit `http://localhost:8080` in your browser
-
-## Technologies Used
-
-- **Frontend**: Vite, React 18, TypeScript, Tailwind CSS, shadcn-ui
-- **Visualization**: Recharts for confidence charts
-- **Backend**: Flask, Flask-CORS
-- **ML Model**: scikit-learn Random Forest Classifier
-- **Data Processing**: NumPy, Joblib
-
-## Project Structure
-
-```
-ai-health-advisor-main/
-├── src/
-│   ├── components/          # React components
-│   ├── data/               # Symptoms, diseases, and feature definitions
-│   ├── pages/              # Page components
-│   ├── hooks/              # Custom React hooks
-│   ├── lib/                # Utility functions
-│   └── App.tsx             # Main app component
-├── backend/
-│   ├── app.py              # Flask API with ML model
-│   └── requirements.txt     # Python dependencies
-├── public/                  # Static assets
-└── vite.config.ts          # Vite configuration
-```
-
-## Machine Learning Model
-
-The AI engine uses a Random Forest classifier trained on medical symptom data:
-
-- **Model File**: `disease_model (1).pkl`
-- **Feature Names**: `feature_names.pkl`
-- **Training Data**: Multiple CSV datasets with symptom-disease correlations
-- **Output**: Disease classification with confidence probability
-
-The backend API (`backend/app.py`) handles:
-- Model loading and prediction
-- Symptom normalization
-- Confidence rounding
-- Disease name mapping
-- CORS for frontend communication
-
-## API Endpoints
-
-### POST `/predict`
-
-Accepts symptom names and returns disease prediction.
-
-**Request:**
-```json
-{
-  "symptoms": ["high_fever", "cough", "headache"]
-}
-```
-
-### Try These Example Symptoms!
-
-Here are a few quick symptom combinations from our dataset that you can test to see how the model responds:
-
-**1. Predicts: Heart attack (High Confidence)**
-- `vomiting`
-- `breathlessness`
-- `sweating`
-
-**2. Predicts: Hypertension (High Confidence)**
-- `headache`
-- `chest_pain`
-- `dizziness`
-
-**3. Predicts: Pneumonia (High Confidence)**
-- `chills`
-- `fatigue`
-- `cough`
-
-**4. Predicts: Arthritis (High Confidence)**
-- `muscle_weakness`
-- `stiff_neck`
-- `swelling_joints`
-
-**Response:**
-```json
-{
-  "disease": "Common Cold",
-  "confidence": 89,
-  "symptoms": ["high_fever", "cough"]
-}
-
-
-
-
-## Development
-
-### Build for Production
-
-```bash
-npm run build
-```
-
-### Run Tests
-
-```bash
-npm run test
-```
-
-### Code Quality
-
-```bash
-npm run lint
-```
-
-## Deployment
-
-### Frontend Deployment
-
-The frontend can be deployed to Vercel, Netlify, or any static hosting:
-
-```bash
-npm run build
-# Deploy the `dist` folder
-```
-
-### Backend Deployment
-
-Deploy the Flask backend to Heroku, Railway, or any Python-compatible platform. Remember to:
-
-1. Set environment variables (if needed)
-2. Configure the startup command: `python backend/app.py`
-3. Ensure model files (`disease_model (1).pkl`, `feature_names.pkl`) are included
+2. **Start the Frontend:**
+   ```bash
+   npm run dev
+   ```
+   Visit the URL provided in your terminal in your browser (usually `http://localhost:8080` or `http://localhost:5173`).
 
 ## Project Author
 
 - **SHUBH GUPTA**
   - GitHub: [Shubhh-007](https://github.com/Shubhh-007)
-  - LinkedIn: [shubhh-gupta](https://www.linkedin.com/in/shubhh-gupta/)
-
-First Machine Learning Project - 2025
 
 ## Disclaimer
 
@@ -241,10 +78,4 @@ First Machine Learning Project - 2025
 
 ## License
 
-MIT
-
----
-
-For questions or contributions, feel free to reach out via GitHub or LinkedIn.
-
-
+MIT License
