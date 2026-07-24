@@ -627,9 +627,10 @@ for (const entry of BASE_DB) {
 }
 
 
-// originally the app used a mock implementation; now we call the backend API
+// originally the app used a mock implementatio; now we call the backend API
 export async function mockPredict(symptoms: string[]): Promise<PredictionResponse> {
-  const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const metaEnv = (import.meta as any).env;
+  const API_BASE_URL = (metaEnv && metaEnv.VITE_API_URL) || "http://localhost:5000";
   try {
     const resp = await fetch(`${API_BASE_URL}/predict`, {
       method: "POST",
