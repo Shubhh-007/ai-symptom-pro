@@ -629,8 +629,9 @@ for (const entry of BASE_DB) {
 
 // originally the app used a mock implementation; now we call the backend API
 export async function mockPredict(symptoms: string[]): Promise<PredictionResponse> {
+  const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
   try {
-    const resp = await fetch("http://localhost:5000/predict", {
+    const resp = await fetch(`${API_BASE_URL}/predict`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ symptoms }),
