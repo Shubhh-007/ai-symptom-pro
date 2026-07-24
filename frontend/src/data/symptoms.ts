@@ -674,13 +674,18 @@ export async function mockPredict(symptoms: string[]): Promise<PredictionRespons
     // fallback to random
     return new Promise((resolve) => {
       setTimeout(() => {
-        const primary = DISEASE_DB[Math.floor(Math.random() * DISEASE_DB.length)];
+        const randomDisease = DISEASE_DB[Math.floor(Math.random() * DISEASE_DB.length)];
+        const primaryConf = Math.floor(Math.random() * 16) + 80; // 80% to 95%
+        const primary: DiseaseResult = {
+          ...randomDisease,
+          confidence: primaryConf,
+        };
         const others = DISEASE_DB.filter((d) => d.disease !== primary.disease);
         const alternatives = others
           .slice(0, 3)
-          .map((d) => ({
+          .map((d, i) => ({
             disease: d.disease,
-            confidence: Math.max(20, d.confidence - Math.floor(Math.random() * 30)),
+            confidence: Math.max(10, primaryConf - (i + 1) * 15 - Math.floor(Math.random() * 10)),
           }))
           .sort((a, b) => b.confidence - a.confidence);
 
@@ -692,7 +697,7 @@ export async function mockPredict(symptoms: string[]): Promise<PredictionRespons
           .sort((a, b) => b.weight - a.weight);
 
         resolve({ primary, alternatives, symptomContributions });
-      }, 2500);
+      }, 1500);
     });
   }
 }
